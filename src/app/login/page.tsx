@@ -28,7 +28,7 @@ export default function LoginPage() {
     try {
       setLoading(true);
       console.log("CheckPoint 1 Login");
-      console.log("User : ", user);
+      console.log("User : ", user.email);
 
       const res = await axios.post("/api/users/login", user);
       if (res.data.error) {
