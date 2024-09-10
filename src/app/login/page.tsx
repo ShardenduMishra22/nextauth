@@ -1,49 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import axios from "axios";
-
-// Type definition for user state
-interface User {
-  email: string;
-  password: string;
-}
-
-export function ModeToggle() {
-  const { setTheme } = useTheme();
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="fixed top-4 right-4">
-          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
+import { ModeToggle } from "@/components/ui/Mode-Toggle"; // Import ModeToggle
 
 export default function LoginPage() {
-  const [user, setUser] = useState<User>({ // Updated type annotation here
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
@@ -72,7 +37,8 @@ export default function LoginPage() {
         router.push("/profile");
         toast.success("Login success");
       }
-    } catch (error: unknown) { // Correct type annotation for error
+    } catch (error) {
+      // console.log("Login failed", error.message);
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
@@ -91,7 +57,7 @@ export default function LoginPage() {
       disableTransitionOnChange
     >
       <div className="bg-white dark:bg-black min-h-screen flex flex-col transition-colors duration-500">
-        <ModeToggle />
+        <ModeToggle /> {/* Use ModeToggle here */}
         <div className="font-semibold container max-w-md mx-auto flex-1 flex flex-col items-center justify-center px-4">
           <div className="rounded-2xl bg-gray-400 dark:bg-gray-600 px-8 py-10 shadow-lg text-black dark:text-white w-full">
             <h1 className="text-4xl text-blue-400 underline font-semibold mb-6 text-center">
@@ -132,14 +98,6 @@ export default function LoginPage() {
               </Link>
             </div>
           </div>
-          {/* <div className="text-gray-600 dark:text-gray-400 mt-6">
-              Forgot your password?{" "}
-              <Link href="/forgot-password">
-                <span className="text-blue-600 dark:text-blue-400 hover:text-yellow-500 dark:hover:text-yellow-500 border-b border-blue-600 dark:border-blue-400 hover:border-yellow-500 dark:hover:border-yellow-500 transition duration-500">
-                  Reset it
-                </span>
-              </Link>
-            </div> */}
         </div>
       </div>
     </ThemeProvider>
