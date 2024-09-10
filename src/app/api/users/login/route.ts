@@ -19,7 +19,7 @@ export async function POST(request : NextRequest){
             return NextResponse.json({error : "User not found"},{status : 404});
         }
         console.log("CheckPoint 3 Login")
-        console.log(user);
+        console.log(user.email);
 
         const isMatch = await bcryptjs.compare(password, user.password);
         if(!isMatch){
