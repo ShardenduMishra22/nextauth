@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {connect} from "@/dbConfig/dbConfig"
 import User from "@/app/models/userModel"
 import { NextRequest,NextResponse } from "next/server"
@@ -49,7 +47,7 @@ export async function POST(request : NextRequest){
 
         return response;
 
-    }catch(error : any){
-        return NextResponse.json({message : error.message},{status : 500});
+    }catch(error){
+        return NextResponse.json({message : (error as Error).message},{status : 500});
     }
 }

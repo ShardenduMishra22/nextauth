@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -16,7 +14,6 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import axios from "axios";
-import { set } from "mongoose";
 
 export function ModeToggle() {
   const { setTheme } = useTheme();
@@ -73,9 +70,9 @@ export default function SignUpPage() {
                 toast.success("Signup success");
                 router.push("/login");
             }
-        } catch (error: any) {
-            console.log("Signup failed", error.message);
-            toast.error(error.message);
+        } catch (error) {
+            // console.log("Signup failed", error.message);
+            toast.error((error as Error).message);
         } finally {
             setLoading(false);
         }

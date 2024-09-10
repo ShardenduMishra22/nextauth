@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// pages/profile/page.tsx
-
 "use client";
 
 import React, { useState } from "react";
@@ -22,9 +19,17 @@ function Page() {
       await axios.get('/api/users/logout');
       toast.success('Logout successful');
       router.push('/login');
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error('Logout failed: ' + error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      } else {
+        console.log('An unknown error occurred');
+      }
+      if (error instanceof Error) {
+        toast.error('Logout failed: ' + error.message);
+      } else {
+        toast.error('Logout failed: An unknown error occurred');
+      }
     } finally {
       setLoading(false);
     }
@@ -36,9 +41,8 @@ function Page() {
       const res = await axios.get('/api/users/me');
       console.log(res.data);
       setData(res.data.data._id);
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error('Failed to fetch user details: ' + error.message);
+    } catch (error) {
+      toast.error('Failed to fetch user details: ');
     } finally {
       setLoading(false);
     }
