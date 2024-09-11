@@ -1,5 +1,5 @@
 # Project Name : [NextJS Authentication](https://nextauth-git-main-shardendu-mishra.vercel.app/)
-# Original On - [GitHub Project Account : Next - Auth Auth](https://github.com/MishraShardendu22/Full-Stack-Next-JS)
+# Original On - [GitHub Project Account : Next - Auth](https://github.com/MishraShardendu22/Full-Stack-Next-JS)
 
 ## Project Overview
 
